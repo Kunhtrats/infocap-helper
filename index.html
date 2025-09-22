@@ -1,47 +1,84 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mi Primera Página Web</title>
+    <title>Ejemplo Completo de HTML5</title>
   </head>
   <body>
-    <!-- Títulos -->
-    <h1>Bienvenidos a mi web</h1>
-    <h2>Subtítulo: Aprendiendo HTML</h2>
-    <h3>Sección 1: Introducción</h3>
 
-    <!-- Párrafo -->
-    <p>HTML es el lenguaje que usamos para crear páginas web. Aquí veremos algunas etiquetas básicas.</p>
+    <!-- Títulos -->
+    <header>
+      <h1>Bienvenidos a mi Página Web</h1>
+      <h2>Aprendiendo HTML de forma sencilla</h2>
+    </header>
+
+    <!-- Párrafos -->
+    <p>Esta página es un ejemplo simple que utiliza las etiquetas fundamentales de HTML5, atributos comunes, imágenes, enlaces, listas, tablas y formularios.</p>
+    <p>Puedes explorar cómo se organiza el contenido y cómo se aplican los atributos para mejorar accesibilidad y funcionalidad.</p>
 
     <!-- Enlace -->
-    <p>Visita <a href="https://www.w3schools.com" target="_blank">W3Schools</a> para aprender más sobre HTML.</p>
+    <p>Aprende más en <a href="https://www.w3schools.com" target="_blank">W3Schools</a>.</p>
 
     <!-- Imagen -->
-    <img src="https://cdn.royalcanin-weshare-online.io/6yJZPmYBaxEApS7LDwYM/v1/ec13a-when-does-your-kitten-become-a-cat-article-cat?w=1280&fm=jpg&auto=format%2Ccompress" width="600" height="350" alt="Imagen de ejemplo" title="Imagen de ejemplo">
+    <img src="https://cdn.royalcanin-weshare-online.io/6yJZPmYBaxEApS7LDwYM/v1/ec13a-when-does-your-kitten-become-a-cat-article-cat?w=1280&fm=jpg&auto=format%2Ccompress" 
+         width="600" height="350" alt="Imagen de ejemplo" title="Imagen de ejemplo">
 
     <!-- Lista con viñetas -->
-    <h3>Lista de cosas que veremos:</h3>
+    <h3>Elementos clave que usamos:</h3>
     <ul>
-      <li>Etiquetas</li>
-      <li>Atributos</li>
-      <li>Formularios</li>
-      <li>Tablas</li>
+      <li>Títulos: &lt;h1&gt; a &lt;h6&gt;</li>
+      <li>Párrafos: &lt;p&gt;</li>
+      <li>Enlaces: &lt;a&gt;</li>
+      <li>Imagen: &lt;img&gt;</li>
+      <li>Listas: &lt;ul&gt;</li>
+      <li>Tablas: &lt;table&gt;</li>
+      <li>Formularios: &lt;form&gt;, &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt;</li>
     </ul>
 
     <!-- Tabla simple -->
     <h3>Tabla de ejemplo</h3>
-    <table border="1">
+    <table border="1" cellpadding="5">
       <tr>
         <th>Nombre</th>
         <th>Edad</th>
+        <th>Ciudad</th>
       </tr>
       <tr>
         <td>Ana</td>
         <td>25</td>
+        <td>Santiago</td>
       </tr>
       <tr>
         <td>Miguel</td>
         <td>30</td>
+        <td>Valparaíso</td>
       </tr>
     </table>
+
+    <!-- Formulario básico -->
+    <h3>Formulario de contacto</h3>
+    <form>
+      <label for="nombre">Nombre:</label><br>
+      <input type="text" id="nombre" name="nombre"><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email"><br><br>
+
+      <label for="comentario">Comentario:</label><br>
+      <textarea id="comentario" name="comentario" rows="3" cols="40"></textarea><br><br>
+
+      <label for="opciones">Elige una opción:</label><br>
+      <select id="opciones" name="opciones">
+        <option value="opcion1">Opción 1</option>
+        <option value="opcion2">Opción 2</option>
+      </select><br><br>
+
+      <input type="submit" value="Enviar">
+    </form>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Mi Página Web</p>
+    </footer>
+
   </body>
 </html>
