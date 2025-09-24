@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menú responsivo - Ejemplo</title>
+  <style>
+    :root{
+      --container: 1100px;
+      --gap: 1rem;
+      --nav-bg: #ffffff;
+      --accent: #111827;
+      --muted: #6b7280;
+      --transition: 240ms ease;
+    }
+
+    *{box-sizing: border-box}
+    body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; color:var(--accent);}
+
+    /* Header / contenedor */
+    .site-header{
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .site-header__inner{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gap);
+    }
+
+    .brand{ font-weight: 700; text-decoration: none; color: inherit; }
+
+    /* Botón hamburguesa (visible en móvil) */
+    .nav-toggle{
+      background: transparent;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      cursor: pointer;
+    }
+    .nav-toggle:focus{ outline: 2px solid rgba(0,0,0,0.12); outline-offset: 2px; border-radius: 6px; }
+
+    /* Icono hamburguesa con pseudo-elementos */
+    .hamburger{
+      display: block;
+      width: 22px; height: 2px;
+      background: currentColor;
+      position: relative;
+    }
+    .hamburger::before, .hamburger::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 22px; height: 2px;
+      background: currentColor;
+    }
+    .hamburger::before{ top: -7px; }
+    .hamburger::after{ top: 7px; }
+
+    /* Menú: mobile-first - oculto por defecto (max-height para animación) */
+    nav.nav{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition);
+      background: var(--nav-bg);
+    }
+
+    .nav.is-open{ /* cuando se abre en móvil */
+      max-height: 500px; /* suficiente para el contenido; ajustar si hay muchos ítems */
+    }
+
+    .nav__list{
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      flex-direction: column; /* <-- móvil: vertical */
+      gap: 0.25rem;
+    }
+    .nav__item{}
+    .nav__link{
+      display: block;
+      padding: 0.5rem 0.75rem;
+      text-decoration: none;
+      color: var(--accent);
+      border-radius: 6px;
+    }
+    .nav__link:hover, .nav__link:focus{ background: rgba(0,0,0,0.03); outline: none; }
+
+    /* Screen-reader only helper */
+    .sr-only{ position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* --- Media query: escritorio --- */
+    @media (min-width: 768px){
+      .nav{
+        max-height: none; /* siempre visible en escritorio */
+        overflow: visible;
+        background: transparent;
+      }
+      .nav-toggle{ display: none; } /* escondemos hamburguesa en escritorio */
+
+      .nav__list{
+        flex-direction: row; /* <-- escritorio: horizontal */
+        align-items: center;
+        gap: 1rem;
+        padding: 0;
+      }
+
+      /* Ejemplo de alineación: logo a la izquierda, links a la derecha */
+      .site-header__inner{ justify-content: space-between; }
+      .nav__link{ padding: 0.5rem 0.45rem; }
+    }
+
+    /* Pequeño ajuste visual para demo */
+    main{ padding: 2rem 1rem; max-width: var(--container); margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="#">MiLogo</a>
+
+      <!-- Botón accesible de hamburguesa -->
+      <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menú">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <!-- Navegación -->
+      <nav id="main-nav" class="nav" role="navigation" aria-label="Menú principal">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="#">Inicio</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Servicios</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Proyectos</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Demo: Menú responsivo</h1>
+    <p>Redimensiona la ventana o prueba en móvil para ver el cambio.</p>
+  </main>
+
+  <script>
+    // JS mínimo para manejar el toggle y accesibilidad
+    (function(){
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('main-nav');
+      const links = nav.querySelectorAll('.nav__link');
+      const BREAKPOINT = 768; // debe coincidir con el CSS
+
+      if(!btn || !nav) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+      });
+
+      // Cerrar menú cuando se hace clic en un link (útil en móvil)
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth < BREAKPOINT && nav.classList.contains('is-open')) {
+            nav.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.setAttribute('aria-label', 'Abrir menú');
+          }
+        });
+      });
+
+      // Guardar consistencia si el usuario redimensiona a escritorio
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= BREAKPOINT) {
+          nav.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Abrir menú');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
